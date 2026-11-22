@@ -1,0 +1,558 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Scrapbook For You 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 25px 12px;
+    min-height: 100vh;
+    font-family: 'Quicksand', sans-serif;
+    color: #704b5b;
+    background-color: #fce8ed;
+    background-image:
+        radial-gradient(#e8b9c8 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.book {
+    max-width: 850px;
+    margin: 20px auto;
+    padding: 30px;
+    background: #fff9f1;
+    border: 2px solid #f0d3d4;
+    border-radius: 8px;
+    box-shadow: 0 15px 40px #b97f9230;
+    position: relative;
+    overflow: hidden;
+}
+
+.book::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #f1d7d9;
+}
+
+.page {
+    display: none;
+    animation: pageIn .6s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1, h2, h3 {
+    font-family: 'Caveat', cursive;
+    color: #c66b8c;
+}
+
+h1 {
+    font-size: clamp(38px, 7vw, 58px);
+    margin: 10px 0;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+p {
+    line-height: 1.9;
+    font-size: 16px;
+}
+
+.center {
+    text-align: center;
+}
+
+.subtitle {
+    color: #a77a8a;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.sticker {
+    display: inline-block;
+    font-size: 35px;
+    margin: 8px;
+    transform: rotate(-8deg);
+}
+
+.tape {
+    display: inline-block;
+    background: #f8cbd8;
+    color: #9c6075;
+    padding: 8px 18px;
+    transform: rotate(-4deg);
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.cover {
+    padding: 55px 15px;
+    background: #fff0f4;
+    border: 2px dashed #e9afc1;
+    border-radius: 12px;
+}
+
+.cover-heart {
+    font-size: 65px;
+    animation: heartbeat 1.4s infinite;
+}
+
+@keyframes heartbeat {
+    50% { transform: scale(1.17); }
+}
+
+button {
+    border: none;
+    border-radius: 25px;
+    padding: 13px 23px;
+    margin: 10px 5px;
+    background: #d985a3;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background: #bd6689;
+    transform: translateY(-3px);
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    margin: 30px auto;
+    max-width: 650px;
+}
+
+.polaroid {
+    background: white;
+    padding: 10px 10px 35px;
+    box-shadow: 0 5px 15px #a8788830;
+    transform: rotate(-3deg);
+    transition: .3s;
+    position: relative;
+}
+
+.polaroid:nth-child(even) {
+    transform: rotate(3deg);
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.04);
+}
+
+.polaroid img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+.caption {
+    font-family: 'Caveat', cursive;
+    font-size: 23px;
+    color: #b76b88;
+    margin-top: 10px;
+}
+
+.memory-card {
+    background: #fff0f3;
+    border: 1px dashed #e6aabe;
+    padding: 22px;
+    margin: 18px 0;
+    border-radius: 12px;
+    transform: rotate(-1deg);
+}
+
+.memory-card:nth-child(even) {
+    transform: rotate(1deg);
+    background: #fff6e9;
+}
+
+.letter {
+    background: #fff5e9;
+    padding: 25px;
+    border: 1px solid #ebd2b9;
+    box-shadow: 0 5px 15px #b58e6730;
+    text-align: left;
+    line-height: 2;
+    border-radius: 5px;
+}
+
+.letter p {
+    font-family: 'Caveat', cursive;
+    font-size: 23px;
+    color: #795568;
+}
+
+.final-heart {
+    font-size: 65px;
+}
+
+#answer {
+    font-family: 'Caveat', cursive;
+    font-size: 29px;
+    color: #c65e88;
+    min-height: 60px;
+}
+
+.footer {
+    text-align: center;
+    color: #bd8296;
+    font-family: 'Caveat', cursive;
+    font-size: 23px;
+    margin-top: 35px;
+}
+
+.page-number {
+    color: #c995a6;
+    font-size: 12px;
+    margin-top: 25px;
+}
+
+@media(max-width: 500px) {
+    .book {
+        padding: 25px 22px 25px 30px;
+    }
+
+    .photo-grid {
+        gap: 14px;
+    }
+
+    .polaroid {
+        padding: 7px 7px 25px;
+    }
+
+    .caption {
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="book">
+
+    <!-- PAGE 1: COVER -->
+    <section class="page active" id="page1">
+        <div class="cover center">
+
+            <div class="sticker">🌷</div>
+            <div class="cover-heart">💗</div>
+            <div class="tape">A LITTLE BOOK OF LOVE</div>
+
+            <h1>Our Little Scrapbook</h1>
+
+            <h2>Heyyy My Chellam Thangoo 🥺</h2>
+
+            <p>
+                A tiny collection of memories,<br>
+                feelings and a little apology.
+            </p>
+
+            <div class="sticker">🧸</div>
+            <div class="sticker">💌</div>
+            <div class="sticker">🦋</div>
+
+            <br>
+
+            <button onclick="goToPage('page2')">
+                Open Our Scrapbook 💕
+            </button>
+
+        </div>
+        <div class="page-number center">01 / 05</div>
+    </section>
+
+
+    <!-- PAGE 2: PHOTOS -->
+    <section class="page" id="page2">
+
+        <div class="center">
+            <div class="sticker">📸</div>
+            <div class="subtitle">Little pieces of happiness</div>
+            <h1>Our Memories</h1>
+            <p>Some moments deserve their own little page. 💗</p>
+        </div>
+
+        <div class="photo-grid">
+
+            <div class="polaroid">
+                <img src="images/photo1.jpg.jpeg" alt="Our memory 1">
+                <div class="caption center">My favourite moment 💕</div>
+            </div>
+
+            <div class="polaroid">
+                <img src="images/photo2.jpg.jpeg" alt="Our memory 2">
+                <div class="caption center">A little happiness 🌷</div>
+            </div>
+
+            <div class="polaroid">
+                <img src="images/photo3.jpg.jpeg" alt="Our memory 3">
+                <div class="caption center">Forever in my heart ❤️</div>
+            </div>
+
+            <div class="polaroid">
+                <img src="images/photo4.jpg.jpeg" alt="Our memory 4">
+                <div class="caption center">One more smile 🥹</div>
+            </div>
+
+        </div>
+
+        <div class="center">
+            <div class="sticker">🧸</div>
+            <button onclick="goToPage('page1')">← Previous</button>
+            <button onclick="goToPage('page3')">Next Page →</button>
+        </div>
+
+        <div class="page-number center">02 / 05</div>
+    </section>
+
+
+    <!-- PAGE 3: LITTLE NOTES -->
+    <section class="page" id="page3">
+
+        <div class="center">
+            <div class="sticker">🦋</div>
+            <div class="subtitle">A few things from my heart</div>
+            <h1>Little Things I Feel</h1>
+        </div>
+
+        <div class="memory-card center">
+            <h2>01. Your Smile 😊</h2>
+            <p>Your smile can make an ordinary day feel special.</p>
+        </div>
+
+        <div class="memory-card center">
+            <h2>02. Our Moments 💗</h2>
+            <p>Even the smallest moments can become beautiful memories.</p>
+        </div>
+
+        <div class="memory-card center">
+            <h2>03. You 🧸</h2>
+            <p>You are someone who means a lot to me.</p>
+        </div>
+
+        <div class="center">
+            <div class="sticker">🌸</div>
+            <br>
+            <button onclick="goToPage('page2')">← Previous</button>
+            <button onclick="goToPage('page4')">Read My Letter 💌</button>
+        </div>
+
+        <div class="page-number center">03 / 05</div>
+    </section>
+
+
+    <!-- PAGE 4: APOLOGY LETTER -->
+    <section class="page" id="page4">
+
+        <div class="center">
+            <div class="sticker">💌</div>
+            <div class="subtitle">A letter from my heart</div>
+            <h1>I'm Truly Sorry</h1>
+        </div>
+
+        <div class="letter">
+
+            <p>Heyyy my chellam thangoo ❤️,</p>
+
+            <p>
+                I know things may not have been perfect between us.
+                I'm truly sorry if I hurt you or made you feel bad.
+            </p>
+
+            <p>
+                Sometimes I may not express my feelings properly,
+                but that doesn't mean you are any less important to me.
+            </p>
+
+            <p>
+                I don't want small misunderstandings to create
+                distance between us.
+            </p>
+
+            <p>
+                I'm not asking you to forget how you feel.
+                I just hope you understand that I'm genuinely sorry.
+            </p>
+
+            <p>
+                You mean a lot to me, and I hope we can smile
+                together again. 🥺
+            </p>
+
+            <p>Sending you the biggest hug! 🫂</p>
+
+            <p style="text-align:right;">
+                With lots of love,<br>
+                Someone who cares about you ❤️
+            </p>
+
+        </div>
+
+        <div class="center">
+            <button onclick="goToPage('page3')">← Previous</button>
+            <button onclick="goToPage('page5')">One Last Thing 💗</button>
+        </div>
+
+        <div class="page-number center">04 / 05</div>
+    </section>
+
+
+    <!-- PAGE 5: FINAL QUESTION -->
+    <section class="page" id="page5">
+
+        <div class="center">
+
+            <div class="final-heart">💖</div>
+
+            <div class="subtitle">Before you close this little book</div>
+
+            <h1>One Little Question...</h1>
+
+            <h2>Do You Love Me? 🥺</h2>
+
+            <p>
+                No pressure. Just answer from your heart. ❤️
+            </p>
+
+            <button onclick="loveYes()">YESSS! 💗</button>
+
+            <button onclick="loveNo()">NO 🥺</button>
+
+            <p id="answer"></p>
+
+            <div class="sticker">🌷</div>
+            <div class="sticker">🧸</div>
+            <div class="sticker">💌</div>
+
+            <br>
+
+            <button onclick="goToPage('page1')">
+                Read Again ↻
+            </button>
+
+        </div>
+
+        <div class="page-number center">05 / 05</div>
+    </section>
+
+
+    <div class="footer">
+        Made with love, just for you 💗
+    </div>
+
+</div>
+
+
+<script>
+
+function goToPage(pageId) {
+
+    const pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    const answer = document.getElementById("answer");
+
+    if (answer) {
+        answer.innerHTML = "";
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.innerHTML = "💗";
+
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "-30px";
+    heart.style.fontSize = "22px";
+    heart.style.pointerEvents = "none";
+    heart.style.zIndex = "10";
+    heart.style.transition = "transform 5s linear, opacity 5s linear";
+
+    document.body.appendChild(heart);
+
+    requestAnimationFrame(function() {
+        heart.style.transform = "translateY(-110vh)";
+        heart.style.opacity = "0";
+    });
+
+    setTimeout(function() {
+        heart.remove();
+    }, 5100);
+}
+
+
+function loveYes() {
+
+    document.getElementById("answer").innerHTML =
+        "YAYYYYY! You made my heart smile! 🥹💗 Love you lots!";
+
+    for (let i = 0; i < 25; i++) {
+        setTimeout(createHeart, i * 100);
+    }
+
+}
+
+
+function loveNo() {
+
+    document.getElementById("answer").innerHTML =
+        "That's okay. Your feelings matter to me. Sending you a gentle hug. 🫂❤️";
+
+}
+
+</script>
+
+</body>
+</html>
